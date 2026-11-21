@@ -15,7 +15,7 @@ Grok bugfix demo: dropped. It tells a story demo 1 and 2 already tell.
 
 ## 1. Decisions already locked
 
-- Harness: T3 Code. Model provider decided on the day based on token headroom.
+- Harness: T3 Code. Provider decided on the day.
 - Stack: Vite + React + TypeScript + Tailwind v4, new public repo `jorsisu/jor-stack-demo`.
 - Repo arrives at minute 30 **pre-scaffolded**: tokens mirroring the Figma Variables, nav and footer built, a visibly empty page where the hero lands. Setting up the project and the design system is the human's job; what happens after is not.
 - Design: a duplicated free Figma file, cleaned up (named layers, auto-layout, Variables), 3 sections.
@@ -27,11 +27,9 @@ Grok bugfix demo: dropped. It tells a story demo 1 and 2 already tell.
 
 ---
 
-## 1b. Models and token budget
+## 1b. Token budget
 
-**Claude Pro, $20, 5 hour windows.** Pro is Sonnet tier in Claude Code, so plan for **Sonnet 5.5 for every step**, no model switching. Run `/model` on the demo machine to confirm what the plan exposes.
-
-**The window is the real constraint, not the model.** Two rehearsals plus the live run is roughly 2.5 hours of agent work.
+Two rehearsals plus the live run is roughly 2.5 hours of agent work, against 5 hour usage windows.
 
 - Rehearse **the day before**, never the same day.
 - No scaffolding, verify skill generation, or fixes on the demo machine within 5 hours of going on stage.
@@ -46,7 +44,7 @@ Token levers, in order of effect:
 
 ### Provider fallback: Antigravity, Codex, Cursor
 
-Running out of Claude tokens means switching provider, not stopping. But T3 Code runs each provider in an **isolated profile** (`~/.t3/userdata/providers/<provider>/<id>/`) with its own config and its own per-conversation MCP directory. **MCP servers are scoped per provider profile.** Figma MCP and chrome-devtools configured for Claude threads do not exist in an Antigravity thread.
+Running out of tokens means switching provider, not stopping. But T3 Code runs each provider in an **isolated profile** (`~/.t3/userdata/providers/<provider>/<id>/`) with its own config and its own per-conversation MCP directory. **MCP servers are scoped per provider profile.** Figma MCP and chrome-devtools configured for Claude threads do not exist in an Antigravity thread.
 
 Preconditions for each fallback provider, all before the talk:
 

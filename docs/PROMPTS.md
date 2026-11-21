@@ -13,7 +13,6 @@ First, verify this session's tooling and report what is missing, nothing else:
 - Figma Dev Mode MCP: is it reachable, and can you read a selected frame?
 - chrome-devtools MCP: is it reachable?
 - jor-stack skills: does the picker list jor-get-ready and jor-browser-review?
-- which model is this session on?
 
 Do not scaffold anything yet.
 ```
