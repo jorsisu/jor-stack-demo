@@ -2,6 +2,8 @@
 
 Copy-paste, in order. Sections 1 and 2 are setup on the work laptop. Sections 3 and 4 are the live demo.
 
+Syntax by provider: `/jor-...` in Claude and Antigravity threads, `$jor-...` (or `$jor-stack:jor-...`) in Codex.
+
 ## 1. Bootstrap, fresh thread on the work laptop
 
 ```
@@ -10,7 +12,8 @@ Read docs/DEMO-PLAN.md in this repo. We are picking up at section 9, Open items.
 First, verify this session's tooling and report what is missing, nothing else:
 - Figma Dev Mode MCP: is it reachable, and can you read a selected frame?
 - chrome-devtools MCP: is it reachable?
-- jor-stack skills: does the picker list /jor-get-ready and /jor-browser-review?
+- jor-stack skills: does the picker list jor-get-ready and jor-browser-review?
+- which model is this session on?
 
 Do not scaffold anything yet.
 ```

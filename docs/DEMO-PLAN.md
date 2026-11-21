@@ -27,6 +27,37 @@ Grok bugfix demo: dropped. It tells a story demo 1 and 2 already tell.
 
 ---
 
+## 1b. Models and token budget
+
+**Claude Pro, $20, 5 hour windows.** Pro is Sonnet tier in Claude Code, so plan for **Sonnet 5.5 for every step**, no model switching. Run `/model` on the demo machine to confirm what the plan exposes.
+
+**The window is the real constraint, not the model.** Two rehearsals plus the live run is roughly 2.5 hours of agent work.
+
+- Rehearse **the day before**, never the same day.
+- No scaffolding, verify skill generation, or fixes on the demo machine within 5 hours of going on stage.
+
+Token levers, in order of effect:
+
+1. **Keep the Figma frame simple.** Dev Mode MCP returns the frame's full node tree. A deeply nested, heavily grouped design can return tens of thousands of tokens before any work starts. Flat auto-layout, few groups, three sections. This is the largest and least obvious lever.
+2. **Fresh thread for demo 2.** Context size drives burn more than call count.
+3. **Two breakpoints, one browser review.** `jor-browser-review` delegates a subagent with its own fresh context, so it is the most expensive single step.
+4. **Small repo.** Pre-scaffolded means few files to explore. No example pages, no component library.
+5. **No `/compact`, no retries.** If a step fails, go to the recording rather than re-running live.
+
+### Provider fallback: Antigravity, Codex, Cursor
+
+Running out of Claude tokens means switching provider, not stopping. But T3 Code runs each provider in an **isolated profile** (`~/.t3/userdata/providers/<provider>/<id>/`) with its own config and its own per-conversation MCP directory. **MCP servers are scoped per provider profile.** Figma MCP and chrome-devtools configured for Claude threads do not exist in an Antigravity thread.
+
+Preconditions for each fallback provider, all before the talk:
+
+1. jor-stack skills linked for that provider. The install doc covers Claude (`~/.claude/skills`) and Antigravity (`~/.gemini/config/skills`); Codex reads the `agents/openai.yaml` files in the repo.
+2. Figma MCP and chrome-devtools MCP configured in that provider's profile. Without them the fallback cannot read the frame or run browser review, which is most of the demo.
+3. Invocation syntax: Codex uses `$jor-...` or `$jor-stack:jor-...`, not `/jor-...`.
+
+A provider switch needs a new thread, so switch only at a **demo boundary**, between demo 1 and demo 2. Never mid `implement`.
+
+---
+
 ## 2. What travels in git, and what does not
 
 **Built on the planning machine, pushed, cloned on the demo machine:**
@@ -182,7 +213,7 @@ Timings to record per segment in rehearsal 2, so the cut decisions on the day ar
 | Failure | Response |
 | --- | --- |
 | Figma MCP will not connect | Switch to the recording. Do not debug MCP on stage. |
-| Out of tokens mid `implement` | Switch to the recording at the point reached. |
+| Out of tokens mid `implement` | Switch to the recording at the point reached. Do not switch provider mid step; a provider switch needs a new thread, so only do it at a demo boundary. |
 | `browser-review` reports Chrome DevTools MCP unavailable | Skip to the Figma and browser side by side comparison manually, then the recording for the review leg. |
 | Demo 1 overruns | Eat into 60–75. Demo 2 is 15 minutes and the agenda has no hard boundary there. |
 | Generated output is visibly wrong | Do not fix it by hand. Describe the problem, send it back, re-run. That is the demo. |
