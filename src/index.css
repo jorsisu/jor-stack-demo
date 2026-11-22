@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-surface-canvas);
+    color: var(--color-ink-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :where(a:any-link, button):focus-visible {
+    outline: 2px solid var(--color-brand-forest);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .torq-container {
+    width: 100%;
+    max-width: min(
+      var(--spacing-page-max),
+      calc(var(--spacing-content-max) + 2 * var(--page-gutter))
+    );
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .skip-link {
+    position: fixed;
+    inset-block-start: 1rem;
+    inset-inline-start: 1rem;
+    z-index: 50;
+    border-radius: var(--radius-control);
+    background-color: var(--color-brand-forest);
+    padding-inline: var(--spacing-btn-x);
+    padding-block: var(--spacing-btn-y);
+    font-size: var(--text-body-sm);
+    line-height: var(--text-body-sm--line-height);
+    font-weight: 500;
+    color: var(--color-ink-inverse);
+  }
+
+  .skip-link:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+}
