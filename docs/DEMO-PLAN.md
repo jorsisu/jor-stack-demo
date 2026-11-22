@@ -6,7 +6,7 @@ Segment 30–60 and 60–75 of a 90 minute talk to UI/UX students.
 
 | Demo | Slot | Path | What it proves |
 | --- | --- | --- | --- |
-| 1. Figma to landing page | 30–60 | `get-ready` → `to-spec` → `to-tickets` → `implement` → `browser-review` | The full workflow: investigation, agreed spec, vertical slices, implementation, visual proof |
+| 1. Figma to three sections | 30–60 | `get-ready` → `to-spec` → `to-tickets` → `implement` → `browser-review` | The full workflow: investigation, agreed spec, vertical slices, implementation, visual proof |
 | 2. Design change to component | 60–75 | `get-ready` → `implement` → `browser-review` | The workflow has gears. Change is the real job, and the short path is cheap |
 
 Grok bugfix demo: dropped. It tells a story demo 1 and 2 already tell.
@@ -17,13 +17,45 @@ Grok bugfix demo: dropped. It tells a story demo 1 and 2 already tell.
 
 - Harness: T3 Code. Provider decided on the day.
 - Stack: Vite + React + TypeScript + Tailwind v4, new public repo `jorsisu/jor-stack-demo`.
-- Repo arrives at minute 30 **pre-scaffolded**: tokens mirroring the Figma Variables, nav and footer built, a visibly empty page where the hero lands. Setting up the project and the design system is the human's job; what happens after is not.
-- Design: a duplicated free Figma file, cleaned up (named layers, auto-layout, Variables), 3 sections.
+- Repo arrives at minute 30 **pre-scaffolded**: tokens from verified Figma styles, Navigation and Footer built, with empty slots for Hero, Confidence strip, and Product collection. Jorge prepares and approves the project and design system before the demo.
+- Design: the selected Motor and Pumps community file, with TORQ layouts. Demo 1 builds three sections from the existing design; demo 2 needs a separate hero variant. See section 1a.
 - Everything runs live. Only Jorge's half of the dialogue is pre-written and pasted.
 - No planted failures. Real ones get handled on stage.
 - English throughout for prompts, artifacts and code. Narration in Spanish.
 - Demo 2 runs in a **fresh thread**.
 - `verify-jor-stack-demo` is committed, not private, so it travels in the clone.
+
+---
+
+## 1a. Figma source and live scope
+
+Source: [Motor and Pumps / TORQ](https://www.figma.com/design/JeHQJzcI84SD9fqPi49Tim/motor-and-pumps-design--Community-?node-id=0-1&p=f&m=dev). File key: `JeHQJzcI84SD9fqPi49Tim`. Page: `0:1`.
+
+Verified through Figma MCP on 2026-11-21: page metadata, desktop and mobile Hero design context with screenshots, desktop Product collection design context with screenshot, and desktop Variables query. The page URL is an entry point; `get_design_context` on `0:1` returned a selection error. Use the section IDs below for design context. No Figma edits were made.
+
+| Reference | Full frame | Hero | Confidence strip | Product collection |
+| --- | --- | --- | --- | --- |
+| Desktop · 1600 | `2:2` | `2:4` | `2:5` | `2:6` |
+| Laptop · 1366 | `2:13` | `2:15` | `2:16` | `2:17` |
+| Tablet · 834 | `2:24` | `2:26` | `2:27` | `2:28` |
+| Mobile · 390 | `2:35` | `2:37` | `2:38` | `2:39` |
+
+The full page has ten sections: Navigation, Hero, Confidence strip, Product collection, Expertise, Featured project, How we help, Questions, Contact, Footer. Keep all four source layouts intact.
+
+**Demo 1 scope:** Hero + Confidence strip + Product collection. Prepare only Navigation and Footer before the talk. Omit Expertise, Featured project, How we help, Questions, and Contact from the demo page. Confirm destinations for navigation, hero CTAs, and product links during planning; use only available targets. Limit live implementation to two proposed slices:
+
+1. Hero + Confidence strip, responsive and with working section links.
+2. Product collection: Electric motors, Submersible pumps, Surface pumps; three columns on desktop and stacked cards on mobile. Agree link destinations during the proposal gate; do not invent product routes.
+
+**Design details already read:** the hero says “A steady force. For every flow.” Text and pump image sit side by side on desktop; mobile stacks text, the two CTAs, and the image. The pump has a caption below it. Both CTAs already exist: “Explore solutions” and “Talk to an expert”. The `01 / 03` label alone does not establish carousel behavior; confirm that at the proposal gate.
+
+**Token source:** `get_variable_defs` on desktop `2:2` returned `{}`. Named Variables and bindings are not confirmed. Use the inspected styles as explicit scaffold tokens unless a later Variables query supplies bindings: Inter; dark green `#183c34`, accent `#387557`, muted text `#66766d`, light surface `#ebefe5`, light text `#fbfbf7`, outline `#a3b5a4`, card border `#dee4d9`, white card surface. Hero heading: 76 px desktop, 45 px mobile; radius: 16 px showcase, 6 px CTA, 10 px product card. These values come from node styles, not a Variables export.
+
+**Assets:** use the exact pump and product photographs from design context. Download them locally during preparation. Refresh expired MCP URLs when needed; never commit temporary URLs or use design screenshots as page assets.
+
+**Review widths:** 390 and 1600, matching the source frames. Read laptop/tablet section context during preparation to establish responsive rules. Check 360, 834, and 1366 during rehearsal if needed; the live review stays at two widths.
+
+**Demo 2 source:** pending. No separate hero change frame appears in the page metadata. Before rehearsal, prepare a centered hero variant at 1600 and 390, preserving copy, tokens, assets, and both CTAs. Record its exact node URLs in this plan and the prompts. Do not treat the existing mobile layout as the design change.
 
 ---
 
@@ -36,7 +68,7 @@ Two rehearsals plus the live run is roughly 2.5 hours of agent work, against 5 h
 
 Token levers, in order of effect:
 
-1. **Keep the Figma frame simple.** Dev Mode MCP returns the frame's full node tree. A deeply nested, heavily grouped design can return tens of thousands of tokens before any work starts. Flat auto-layout, few groups, three sections. This is the largest and least obvious lever.
+1. **Read section nodes, not the whole page.** Use the three scoped section IDs at desktop and mobile widths. Fetch laptop/tablet nodes only to resolve a responsive question. A full TORQ page read includes seven sections outside the live build.
 2. **Fresh thread for demo 2.** Context size drives burn more than call count.
 3. **Two breakpoints, one browser review.** `jor-browser-review` delegates a subagent with its own fresh context, so it is the most expensive single step.
 4. **Small repo.** Pre-scaffolded means few files to explore. No example pages, no component library.
@@ -60,15 +92,15 @@ A provider switch needs a new thread, so switch only at a **demo boundary**, bet
 
 **Built on the planning machine, pushed, cloned on the demo machine:**
 
-- the Vite app, tokens, nav, footer, empty page
-- `.agents/skills/verify-jor-stack-demo/SKILL.md`, with `breakpoints` trimmed to **360 and 1280** only
+- the Vite app, style tokens, Navigation, Footer, and empty slots for the three live sections; local design assets
+- `.agents/skills/verify-jor-stack-demo/SKILL.md`, with `breakpoints` trimmed to **390 and 1600** only
 - `scripts/demo-reset.sh` and `scripts/demo-check.sh`, wired as `npm run demo:reset` and `npm run demo:check`
 - this plan, and `DEMO.md`
 
 **Cannot travel. Manual checklist on the demo machine:**
 
-1. Figma desktop installed, signed in, seat allows Dev Mode MCP.
-2. Figma MCP enabled and reachable. Smoke test: select a frame, ask the agent to read it, confirm real output.
+1. Figma file accessible to the account used by MCP. Figma desktop signed in if using its local MCP server.
+2. Figma MCP enabled and reachable. Smoke test: read Hero `2:4` and Mobile Hero `2:37` by file key and node ID, including screenshots. Confirm real output.
 3. `chrome-devtools` MCP configured **in T3 Code**. `docs/t3code-install.md` line 5 in the jor-stack repo: standalone skill links do **not** load `jor-stack/mcp.json`, so browser tooling is configured separately. `jor-browser-review` reports a blocker and stops if this is missing.
 4. `jor-stack` skills linked per that install doc, verified with `/jor` in the picker.
 5. Node, `npm install` done, `npm run dev` confirmed on `http://localhost:5173`.
@@ -81,7 +113,7 @@ A provider switch needs a new thread, so switch only at a **demo boundary**, bet
 - Split screen: terminal left, Chrome right. Chrome comes to the foreground for browser review, which is the only part of this demo that is visually self-evident to a design audience.
 - Vite already running in a separate terminal that is never touched on stage.
 - Browser review uses an isolated browser context so personal tabs and sessions never reach the projector.
-- Figma desktop open on a second display, correct frame selected, with the demo 2 version of the hero ready but not yet selected.
+- Figma desktop open on a second display, desktop frame `2:2` visible, with the separate demo 2 hero variant ready on the second display.
 - Recording of the final successful rehearsal, one keystroke away, on the second display.
 - Large terminal font. Maximized window.
 
@@ -92,7 +124,7 @@ A provider switch needs a new thread, so switch only at a **demo boundary**, bet
 - git at tag `demo-start`, clean tree
 - `chrome-devtools` MCP reachable
 - Figma MCP reachable
-- correct Figma frame selected
+- exact demo 1 node URLs available; demo 2 variant URLs recorded
 
 ---
 
@@ -102,10 +134,10 @@ Target: 25 minutes of agent work, 5 of slack. Audience questions during agent wa
 
 ### 4.1 Open
 
-Select the landing page frame in Figma desktop. Then, in a fresh thread:
+Open the TORQ desktop reference. In a fresh thread, use explicit node URLs so MCP does not depend on the current selection:
 
 ```
-/jor-get-ready build the landing page from the selected Figma frame into this project, matching the existing design tokens
+/jor-get-ready Read docs/DEMO-PLAN.md section 1a. Use Figma MCP to inspect file JeHQJzcI84SD9fqPi49Tim: desktop Hero 2:4, Confidence strip 2:5, Product collection 2:6; mobile equivalents 2:37, 2:38, 2:39. Build only these three sections in the prepared page, reusing existing tokens and local assets. Read section design context and screenshots. Propose two vertical slices and confirm link destinations and whether the hero is static. Do not implement yet.
 ```
 
 Narration while it works: what `get-ready` is and is not. It investigates and proposes. It is not authorized to change a single file. That restriction is the first gate.
@@ -159,34 +191,34 @@ Narration while it works: the gate it will stop at next, and what peer review is
 Once, at the end, two widths.
 
 ```
-/jor-browser-review http://localhost:5173 at 360 and 1280
+/jor-browser-review http://localhost:5173 at 390 and 1600
 ```
 
-Say out loud: it normally checks five widths; this is scoped to two for time, and it is configurable. Bring Chrome to the foreground. The room watches the viewport snap from 360 to 1280 and the hero reflow.
+Say out loud: it normally checks five widths; this is scoped to two for time, and it is configurable. Bring Chrome to the foreground. The room watches the viewport snap from 390 to 1600 and the hero and product cards reflow.
 
-Read the Human verification section aloud. If the 360 screenshot shows overflow or desktop spacing, that is the whole argument in one frame: the code ran, the checks passed, the outcome was still wrong, and a human noticed. Describe the problem and let the agent fix it. Do not fix it yourself.
+Read the Human verification section aloud. If the 390 screenshot shows overflow or desktop spacing, that is the whole argument in one frame: the code ran, the checks passed, the outcome was still wrong, and a human noticed. Describe the problem and let the agent fix it. Do not fix it yourself.
 
 ### 4.8 Close demo 1
 
-The hero and the rest of the page are on screen next to the Figma frame. Point at the match. Name what was human: the project setup, the design system, the scope decision, the ticket correction, the visual judgment.
+The three completed sections are on screen next to their Figma references. Point at the match. Name what was human: the project setup, the design system, the scope decision, the ticket correction, the visual judgment.
 
 ---
 
 ## 5. Demo 2 runbook, 60–75
 
-In Figma: the hero is restructured, not re-tokened. Left aligned text and image becomes centered, with a badge above the headline and two CTAs. This cannot be faked by swapping a variable, so the agent has to read the new frame and rewrite the component's structure. The design changed, not the prompt, and the outcome followed.
+In the prepared Figma variant: the desktop hero changes from side-by-side text and image to centered text above the pump showcase. Preserve the existing eyebrow, copy, caption, and both CTAs. Use the corresponding mobile variant as the responsive target. This cannot be faked by swapping a variable, so the agent has to read the new frame and rewrite the component's structure. The design changed, not the prompt, and the outcome followed.
 
 **Fresh thread.** `get-ready` starts cold, so the opening line points at both the new frame and the existing component path.
 
 ```
-/jor-get-ready the hero design changed. Read the selected Figma frame and update src/components/Hero.tsx to match
+/jor-get-ready Read docs/DEMO-PLAN.md section 1a. The hero layout changed. Use Figma MCP to read <demo-2-desktop-node-url> and <demo-2-mobile-node-url>, including screenshots. Update src/components/Hero.tsx to match, reusing tokens and local assets. Keep Confidence strip and Product collection in scope only for regression checks. Propose the change first.
 ```
 
 Then, after the proposal gate:
 
 ```
 /jor-implement
-/jor-browser-review http://localhost:5173 at 360 and 1280
+/jor-browser-review http://localhost:5173 at 390 and 1600
 ```
 
 The point to land: no spec, no tickets. One component, a known change, so the short path is the right path. Choosing which gates to skip **is** the responsibility being claimed. Six to eight minutes against twenty five for the initial build; that ratio is the argument for the whole approach.
@@ -228,12 +260,16 @@ For this audience the valuable artifact is not the React code, it is seeing what
 
 ## 9. Open items
 
-- [ ] Build the Figma file: duplicate, clean layer names, auto-layout, Variables, 3 sections, plus the demo 2 hero variant.
-- [ ] Export Figma Variables as a name to value list and hand it over, so the scaffold's tokens mirror the design instead of approximating it.
-- [ ] Scaffold the repo against the real tokens.
-- [ ] Generate `verify-jor-stack-demo` with `/jor-verify`, answer **shared** when it asks, trim breakpoints to 360 and 1280.
-- [ ] Write `demo-reset.sh` and `demo-check.sh`.
-- [ ] Tag `demo-start`.
+- [x] Select the Figma source and read its structure, desktop/mobile Hero, and desktop Product collection through MCP.
+- [x] Read remaining scoped section context at mobile/tablet/laptop widths during scaffold preparation.
+- [ ] Prepare the demo 2 centered hero variant at 1600 and 390; record both node URLs.
+- [x] Confirm whether named Variables should be added in Figma; otherwise approve the explicit style token map in section 1a.
+- [x] Scaffold with verified style tokens, local assets, Navigation, Footer, and the three live section slots.
+- [x] Generate `verify-jor-stack-demo` with `/jor-verify`, answer **shared** when it asks, trim breakpoints to 390 and 1600.
+- [x] Write `demo-reset.sh` and `demo-check.sh`.
+- [x] Tag `demo-start`.
 - [ ] Demo machine setup checklist, section 2.
 - [ ] Two rehearsals, second one recorded.
 - [ ] Gate replies 1 to 3.
+
+Unresolved: demo 2 node URLs; product link destinations; static hero or carousel.
