@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 
 const PRIMARY_NAV_LINKS = [
   { label: 'Solutions', href: '#solutions', showOnTablet: true },
-  { label: 'Our expertise', href: '#confidence', showOnTablet: false },
-  { label: 'Projects', href: '#solutions', showOnTablet: false },
+  { label: 'Our expertise', href: '#expertise', showOnTablet: false },
+  { label: 'Projects', href: '#projects', showOnTablet: false },
   { label: 'About us', href: '#footer', showOnTablet: false },
 ] as const
 
@@ -75,7 +75,7 @@ export function Navigation() {
         </nav>
 
         <a
-          href="#footer"
+          href="#contact"
           className="hidden shrink-0 items-center gap-1.5 rounded-control bg-brand-forest px-btn-x py-btn-y text-body-sm font-medium text-ink-inverse whitespace-nowrap transition-opacity hover:opacity-90 tablet:inline-flex"
         >
           Let’s talk
@@ -118,7 +118,7 @@ export function Navigation() {
 
             <div className="mt-4 border-t border-border-subtle pt-4">
               <a
-                href="#footer"
+                href="#contact"
                 onClick={closeMenu}
                 className="inline-flex items-center gap-1.5 rounded-control bg-brand-forest px-btn-x py-btn-y text-body-sm font-medium text-ink-inverse transition-opacity hover:opacity-90"
               >

@@ -1,7 +1,7 @@
 const EXPLORE_LINKS = [
   { label: 'Our solutions', href: '#solutions' },
-  { label: 'Our expertise', href: '#confidence' },
-  { label: 'Projects', href: '#solutions' },
+  { label: 'Our expertise', href: '#expertise' },
+  { label: 'Projects', href: '#projects' },
   { label: 'About torq.', href: '#hero' },
 ] as const
 

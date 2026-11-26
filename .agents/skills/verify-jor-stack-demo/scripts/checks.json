@@ -1,4 +1,0 @@
-[
-  { "name": "typecheck", "command": ["npm", "run", "typecheck"] },
-  { "name": "build", "command": ["npm", "run", "build"] }
-]

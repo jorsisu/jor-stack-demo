@@ -24,11 +24,13 @@
   --color-surface-footer: #f7f8f2;
   --color-surface-strip: #eff2e8;
   --color-surface-media: #ebefe5;
+  --color-surface-contact: #d7ef9b;
 
   /* Colors — Ink & Borders */
   --color-ink-primary: #183c34;
   --color-ink-muted: #66766d;
   --color-ink-inverse: #fbfbf7;
+  --color-ink-contact-secondary: #476047;
 
   --color-border-subtle: #dee4d9;
   --color-border-control: #a3b5a4;
