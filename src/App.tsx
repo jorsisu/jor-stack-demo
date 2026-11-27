@@ -1,10 +1,5 @@
-import { Contact } from './components/Contact'
-import { Expertise } from './components/Expertise'
-import { FeaturedProject } from './components/FeaturedProject'
 import { Footer } from './components/Footer'
-import { Hero } from './components/Hero'
 import { Navigation } from './components/Navigation'
-import { ProductCollection } from './components/ProductCollection'
 
 export function App() {
   return (
@@ -12,11 +7,9 @@ export function App() {
       <Navigation />
 
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <Hero />
-        <ProductCollection />
-        <Expertise />
-        <FeaturedProject />
-        <Contact />
+        <section id="hero" data-slot="hero" />
+        <section id="confidence" data-slot="confidence-strip" />
+        <section id="solutions" data-slot="product-collection" />
       </main>
 
       <Footer />
