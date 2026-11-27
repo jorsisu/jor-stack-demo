@@ -1,4 +1,5 @@
 import { Footer } from './components/Footer'
+import { Hero } from './components/Hero'
 import { Navigation } from './components/Navigation'
 
 export function App() {
@@ -7,7 +8,7 @@ export function App() {
       <Navigation />
 
       <main id="main-content" tabIndex={-1} className="flex-1">
-        <section id="hero" data-slot="hero" />
+        <Hero />
         <section id="confidence" data-slot="confidence-strip" />
         <section id="solutions" data-slot="product-collection" />
       </main>
